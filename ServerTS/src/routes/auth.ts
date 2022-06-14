@@ -3,6 +3,7 @@ import { body } from "express-validator";
 
 import User from "../models/user";
 import authController from "../controllers/auth";
+import isAuth from "../middleware/is-auth";
 
 const router = express.Router();
 
@@ -27,5 +28,6 @@ router.put(
 );
 
 router.post("/login", authController.login);
+router.get("/status", isAuth, authController.getUserStatus);
 
 export default router;

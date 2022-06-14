@@ -1,0 +1,6 @@
+[Error] Failed to load resource: Preflight response is not successful. Status code: 404 (posts, line 0)
+[Error] Failed to load resource: the server responded with a status of 431 (Request Header Fields Too Large) (URL, line 0)
+
+you could increase the max_header_value_length
+node --max-http-header-size=16384 
+https://cri.dev/posts/2020-05-18-Fixing-431-Request-Header-Fields-Too-Large-in-Nodejs/

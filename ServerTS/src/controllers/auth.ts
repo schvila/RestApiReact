@@ -4,6 +4,10 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 import User, { IUser } from "../models/user";
+//test only
+const http = require("http");
+let size = http.maxHeaderSize;
+console.log("Max HTTP Header size is", size);
 
 const signup = (req: Request, res: Response, next: NextFunction) => {
   const errors = validationResult(req);
@@ -76,7 +80,25 @@ const login = (req: Request, res: Response, next: NextFunction) => {
       next(err);
     });
 };
+const getUserStatus = (req: any, res: Response, next: NextFunction) => {
+  User.findById(req.userId)
+    .then((user) => {
+      if (!user) {
+        const err: any = new Error("User no found.");
+        err.statusCode = 500;
+        throw err;
+      }
+      res.status(200).json({ status: user.status });
+    })
+    .catch((error) => {
+      if (!error.statusCode) {
+        error.statusCode = 500;
+      }
+      next(error);
+    });
+};
 export default {
   login,
   signup,
+  getUserStatus,
 };
