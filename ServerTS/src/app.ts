@@ -54,8 +54,8 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   next();
 });
 
-// app.use('/feed', feedRoutes);
-// app.use('/auth', authRoutes);
+app.use("/feed", feedRoutes);
+app.use("/auth", authRoutes);
 
 app.use((error: any, req: Request, res: Response, next: NextFunction) => {
   console.log(error);
