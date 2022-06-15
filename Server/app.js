@@ -61,13 +61,14 @@ app.use((error, req, res, next) => {
 
 mongoose
   .connect(
-    'mongodb+srv://standa:rnEZ3rjw3lf9J7Bh@cluster0.5tfx5.mongodb.net/messages?retryWrites=true&w=majority',
+    'mongodb://localhost:27017/messages?retryWrites=true&w=majority',
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     }
   )
   .then(result => {
+    console.log('JS Server listen on port 8080, mongoose connected.');
     app.listen(8080);
   })
   .catch(err => console.log(err));
