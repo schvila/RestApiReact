@@ -1,3 +1,0 @@
-Run mongo local
-Mongod --dbpath /Applications/mongo/data
-
