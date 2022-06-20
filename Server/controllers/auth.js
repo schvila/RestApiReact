@@ -67,16 +67,12 @@ exports.login = async (req, res, next) => {
 
 exports.getUserStatus = async (req, res, next) => {
   try {
-    const newStatus = req.body.status;
     const user = await User.findById(req.userId);
     if (!user) {
       const err = new Error("User no found.");
       err.statusCode = 500;
       throw err;
     }
-    user.status = newStatus;
-    await user.save();
-
 
     res.status(200).json({ status: user.status });
   } catch (err) {
@@ -88,5 +84,23 @@ exports.getUserStatus = async (req, res, next) => {
 };
 
 exports.updateUserStatus = (req, res, next) => {
+  const newStatus = req.body.status;
+  try {
+    const user = await User.findById(req.userId);
+    if (!user) {
+      const err = new Error("User no found.");
+      err.statusCode = 500;
+      throw err;
+    }
+    user.status = newStatus;
+    await user.save();
+
+    res.status(200).json({ message: 'User updated.' });
+  } catch (err) {
+    if (!error.statusCode) {
+      error.statusCode = 500;
+    }
+    next(error);
+  }
 
 }
